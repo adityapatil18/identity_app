@@ -1,5 +1,13 @@
+// This screen is used for uploading selfie
+
+
+
+import 'dart:io';
+
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:identity_app/screen3.dart';
+import 'package:identity_app/sharedPreferences.dart';
 
 class Screen2 extends StatefulWidget {
   const Screen2({super.key});
@@ -9,24 +17,93 @@ class Screen2 extends StatefulWidget {
 }
 
 class _Screen2State extends State<Screen2> {
+  String capturedImage = ''; // to hold captured image path
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadCapturedImage(); // Load the captured image path when the screen is initialized.
+  // }
+
+  @override
+  void initState() {
+    print(SharedPreferencesFunctions().getSelfie);
+
+    super.initState();
+    capturedImage = SharedPreferencesFunctions().getSelfie() == null ||
+            SharedPreferencesFunctions().getSelfie() == 'null'
+        ? ""
+        : SharedPreferencesFunctions().getSelfie()!;
+    print("imagePath$capturedImage");
+  }
+
+// Load the captured image path from SharedPreferences.
+  // Future<void> loadCapturedImage() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? savedImage = prefs.getString('capturedImage');
+  //   if (savedImage != null) {
+  //     setState(() {
+  //       capturedImage = savedImage;
+  //     });
+  //   }
+  // }
+
+  // Save the captured image path to SharedPreferences.
+  // Future<void> saveCapturedImage(String imagePath) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('capturedImage', imagePath);
+  // }
+
   Future<void> scanDocument() async {
     try {
       final List<String>? document = await CunningDocumentScanner.getPictures();
-     print('clicked');
+      if (document != null && document.isNotEmpty) {
+        final String imagePath = document[0];
+        setState(() {
+          capturedImage = imagePath;
+        });
+        // saveCapturedImage(
+        //     imagePath);
+        //
+        // Save the captured image path in SharedPreferences
+        SharedPreferencesFunctions().saveSelfie(imagePath.toString());
+      }
     } catch (e) {
       print("Error scanning document: $e");
     }
   }
 
+  // Future<void> scanDocument() async {
+  //   try {
+  //     final List<String>? document = await CunningDocumentScanner.getPictures();
+  //     if (document != null && document.isNotEmpty) {
+  //       setState(() {
+  //         capturedImage = document[0];
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print("Error scanning document: $e");
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          size: 24,
-          Icons.arrow_back_ios,
-          color: Colors.black,
-        ),
+        // leading: Icon(
+        //   size: 24,
+        //   Icons.arrow_back_ios,
+        //   color: Colors.black,
+        // ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+              size: 24,
+            )),
         title: Text(
           "Verify your Identity",
           style: TextStyle(
@@ -43,13 +120,36 @@ class _Screen2State extends State<Screen2> {
               height: 101,
             ),
             Center(
-              child: Container(
-                alignment: Alignment.center,
-                height: 240,
-                width: 240,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('images/face-id.png'))),
+              child: Stack(
+                children: [
+                  Container(
+                    height: 240,
+                    width: 240,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('images/Vector.png'))),
+                  ),
+                  Positioned(
+                    top: 50,
+                    left: 50,
+                    child: Container(
+                      height: 140,
+                      width: 140,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                            image: capturedImage != ''
+                                ? FileImage(File(
+                                    capturedImage!)) // Use the captured image
+                                : AssetImage('images/user.png')
+                                    as ImageProvider,
+                            fit: BoxFit.cover // Use default image
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
@@ -181,7 +281,7 @@ class _Screen2State extends State<Screen2> {
                   color: Color.fromARGB(255, 23, 82, 109),
                 ),
                 child: Text(
-                  'Open Camera',
+                  capturedImage == '' ? "Open Camera" : "Submit for review",
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
@@ -189,7 +289,15 @@ class _Screen2State extends State<Screen2> {
                 ),
               ),
               onTap: () {
-                scanDocument();
+                if (capturedImage == '') {
+                  scanDocument();
+                } else {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Screen3(),
+                      ));
+                }
               },
             ),
           ],

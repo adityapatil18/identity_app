@@ -1,4 +1,8 @@
+
+// This screen is of loader 
+
 import 'package:flutter/material.dart';
+import 'package:identity_app/screen1.dart';
 
 class Screen3 extends StatelessWidget {
   const Screen3({super.key});
@@ -64,7 +68,13 @@ class Screen3 extends StatelessWidget {
                       color: Color(0xFFF7F7F7)),
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Screen1(),
+                    ));
+              },
             ),
           ],
         ),

@@ -39,6 +39,10 @@ dependencies:
   cunning_document_scanner: ^1.1.2
   image_picker: ^1.0.4
   camera: ^0.10.5+5
+  intl: ^0.18.1
+  country_picker: ^2.0.21
+  csc_picker: ^0.2.7
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

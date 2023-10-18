@@ -1,4 +1,8 @@
+// This screen is for select country,slecet identity 
+
+
 import 'package:flutter/material.dart';
+import 'package:identity_app/screen6.dart';
 
 class Screen5 extends StatefulWidget {
   const Screen5({super.key});
@@ -8,17 +12,21 @@ class Screen5 extends StatefulWidget {
 }
 
 class _Screen5State extends State<Screen5> {
-  List<String> options = ['option1', 'option2', 'option3'];
+  // List<String> options = ['option1', 'option2', 'option3'];
+  String _currentOption = "";
 
   @override
   Widget build(BuildContext context) {
-    String _currentOption = options[0];
-
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          size: 24,
-          Icons.arrow_back_ios,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 24,
+          ),
           color: Colors.black,
         ),
         title: Text(
@@ -77,6 +85,7 @@ class _Screen5State extends State<Screen5> {
                             fontWeight: FontWeight.w700,
                             color: Color(0xFF17526D)),
                       ),
+                      children: [],
                     ),
                   )
                 ],
@@ -122,9 +131,13 @@ class _Screen5State extends State<Screen5> {
             Row(
               children: [
                 Radio(
-                  value: options[0],
+                  value: "Passport",
                   groupValue: _currentOption,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      _currentOption = value!;
+                    });
+                  },
                 ),
                 Text(
                   'Passport',
@@ -141,9 +154,13 @@ class _Screen5State extends State<Screen5> {
                   activeColor: null,
                   fillColor: null,
                   focusColor: Colors.white,
-                  value: options[0],
+                  value: "Aadhar Card",
                   groupValue: _currentOption,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      _currentOption = value!;
+                    });
+                  },
                 ),
                 Text(
                   'Aadhar Card',
@@ -157,9 +174,13 @@ class _Screen5State extends State<Screen5> {
             Row(
               children: [
                 Radio(
-                  value: options[0],
+                  value: "PAN Card",
                   groupValue: _currentOption,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    setState(() {
+                      _currentOption = value!;
+                    });
+                  },
                 ),
                 Text(
                   'PAN Card',
@@ -267,20 +288,6 @@ class _Screen5State extends State<Screen5> {
             SizedBox(
               height: 30,
             ),
-            Center(
-              child: Text(
-                "Upload.jpg file",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0xFF17526D),
-                    decoration: TextDecoration.underline,
-                    decorationThickness: 2),
-              ),
-            ),
-            SizedBox(
-              height: 26,
-            ),
             GestureDetector(
               child: Container(
                 alignment: Alignment.center,
@@ -288,18 +295,60 @@ class _Screen5State extends State<Screen5> {
                 width: MediaQuery.sizeOf(context).width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                  color: Color.fromARGB(255, 23, 82, 109),
+                  color: _currentOption.isNotEmpty
+                      ? Color.fromARGB(255, 23, 82, 109)
+                      : Color.fromRGBO(23, 82, 109, 1.0).withOpacity(0.6),
                 ),
                 child: Text(
-                  'Open the Camera',
+                  'Next',
                   style: TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: Color(0xFFF7F7F7)),
                 ),
               ),
-              onTap: () {},
-            ),
+              onTap: _currentOption.isNotEmpty
+                  ? () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Screen6(),
+                          ));
+                    }
+                  : null,
+            ), // Center(
+            //   child: Text(
+            //     "Upload.jpg file",
+            //     style: TextStyle(
+            //         fontSize: 16,
+            //         fontWeight: FontWeight.w400,
+            //         color: Color(0xFF17526D),
+            //         decoration: TextDecoration.underline,
+            //         decorationThickness: 2),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 26,
+            // ),
+            // GestureDetector(
+            //   child: Container(
+            //     alignment: Alignment.center,
+            //     height: 47,
+            //     width: MediaQuery.sizeOf(context).width,
+            //     decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(8),
+            //       color: Color.fromARGB(255, 23, 82, 109),
+            //     ),
+            //     child: Text(
+            //       'Open the Camera',
+            //       style: TextStyle(
+            //           fontWeight: FontWeight.w400,
+            //           fontSize: 16,
+            //           color: Color(0xFFF7F7F7)),
+            //     ),
+            //   ),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),
