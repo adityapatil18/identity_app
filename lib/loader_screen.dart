@@ -2,7 +2,7 @@
 // This screen is of loader 
 
 import 'package:flutter/material.dart';
-import 'package:identity_app/screen1.dart';
+import 'package:identity_app/first_screen.dart';
 
 class Screen3 extends StatelessWidget {
   const Screen3({super.key});

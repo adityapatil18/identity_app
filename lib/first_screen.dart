@@ -3,8 +3,8 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:identity_app/screen2.dart';
-import 'package:identity_app/screen5.dart';
+import 'package:identity_app/photo_scanner_screen.dart';
+import 'package:identity_app/data_selection_screenn.dart';
 import 'package:identity_app/sharedPreferences.dart';
 
 class Screen1 extends StatefulWidget {

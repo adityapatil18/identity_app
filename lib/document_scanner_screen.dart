@@ -1,11 +1,10 @@
 // This screen is for uploading photo of document
 
-
 import 'dart:io';
 
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:flutter/material.dart';
-import 'package:identity_app/screen3.dart';
+import 'package:identity_app/loader_screen.dart';
 import 'package:identity_app/sharedPreferences.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -61,6 +60,7 @@ class _Screen6State extends State<Screen6> {
         capturedDocument = pickedImage.path;
       });
     }
+    SharedPreferencesFunctions().saveSelfie(pickedImage.toString());
   }
 
   // // Save the captured image path to SharedPreferences.

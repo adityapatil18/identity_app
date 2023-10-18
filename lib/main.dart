@@ -1,10 +1,10 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:identity_app/screen1.dart';
-import 'package:identity_app/screen2.dart';
-import 'package:identity_app/screen3.dart';
-import 'package:identity_app/screen5.dart';
+import 'package:identity_app/first_screen.dart';
+import 'package:identity_app/photo_scanner_screen.dart';
+import 'package:identity_app/loader_screen.dart';
+import 'package:identity_app/data_selection_screenn.dart';
 import 'package:identity_app/selfie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

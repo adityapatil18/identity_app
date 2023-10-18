@@ -2,7 +2,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:identity_app/screen6.dart';
+import 'package:identity_app/document_scanner_screen.dart';
 
 class Screen5 extends StatefulWidget {
   const Screen5({super.key});

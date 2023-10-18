@@ -6,7 +6,7 @@ import 'dart:io';
 
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:flutter/material.dart';
-import 'package:identity_app/screen3.dart';
+import 'package:identity_app/loader_screen.dart';
 import 'package:identity_app/sharedPreferences.dart';
 
 class Screen2 extends StatefulWidget {

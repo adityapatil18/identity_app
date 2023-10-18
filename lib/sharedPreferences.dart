@@ -123,7 +123,7 @@ class SharedPreferencesFunctions {
   }
 
   saveSelfie(String Selfie) {
-    sharedPreferences!.setString("Selfie", Selfie);
+    sharedPreferences?.setString("Selfie", Selfie);
   }
 
   String? getSelfie() {
