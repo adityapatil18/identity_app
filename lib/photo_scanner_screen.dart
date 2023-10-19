@@ -19,11 +19,7 @@ class Screen2 extends StatefulWidget {
 class _Screen2State extends State<Screen2> {
   String capturedImage = ''; // to hold captured image path
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadCapturedImage(); // Load the captured image path when the screen is initialized.
-  // }
+  
 
   @override
   void initState() {
