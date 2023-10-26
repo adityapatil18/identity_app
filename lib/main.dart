@@ -5,6 +5,8 @@ import 'package:identity_app/first_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 SharedPreferences? sharedPreferences;
+var version="1.3.10";
+
 
 void main() {
   runApp(IdentityApp());
