@@ -316,6 +316,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart' as http;
 import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:flutter/material.dart';
@@ -366,8 +367,14 @@ class _Screen2State extends State<Screen2> {
     try {
       if (capturedImage.isNotEmpty) {
         File imageFile = File(capturedImage);
-        List<int> imageBytes = imageFile.readAsBytesSync();
-        String base64Image = base64Encode(imageBytes);
+
+        // Compress the image before uploading
+        final compressedImageBytes =
+            await FlutterImageCompress.compressWithFile(imageFile.path,
+                minHeight: 10, minWidth: 10, quality: 10);
+        print(compressedImageBytes);
+
+        String base64Image = base64Encode(compressedImageBytes!);
 
         String apiUrl =
             'http://apifirst.idleplay.in/api/auth/update-kyc-profile/$userId';
@@ -389,7 +396,7 @@ class _Screen2State extends State<Screen2> {
           headers: headers,
           body: jsonEncode(requestBody),
         );
-        print('$base64Image');
+
         if (response.statusCode == 200) {
           print('API response: ${response.body}');
         } else {
